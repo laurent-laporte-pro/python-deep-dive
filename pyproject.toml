@@ -1,0 +1,95 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "python-deep-dive"
+dynamic = ["version"]
+description = 'Dive deep into the heart of Python language and its libraries to enhance your efficiency as a developper'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+    { name = "Laurent LAPORTE", email = "laurent.laporte.pro@gmail.com" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+    "click",
+]
+
+[project.urls]
+Documentation = "https://github.com/laurent-laporte-pro/python-deep-dive#readme"
+Issues = "https://github.com/laurent-laporte-pro/python-deep-dive/issues"
+Source = "https://github.com/laurent-laporte-pro/python-deep-dive"
+
+[project.scripts]
+python-deep-dive = "python_deep_dive.cli:python_deep_dive"
+
+[tool.hatch.version]
+path = "src/python_deep_dive/__about__.py"
+
+[tool.hatch.envs.default]
+dependencies = [
+    "coverage[toml]>=6.5",
+    "pytest",
+]
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:tests}"
+test-cov = "coverage run -m pytest {args:tests}"
+cov-report = [
+    "- coverage combine",
+    "coverage report",
+]
+cov = [
+    "test-cov",
+    "cov-report",
+]
+
+[[tool.hatch.envs.all.matrix]]
+python = ["3.8", "3.9", "3.10", "3.11", "3.12"]
+
+[tool.hatch.envs.types]
+dependencies = [
+    "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/python_deep_dive tests}"
+
+[tool.hatch.envs.docs]
+detached = true
+dependencies = ["mkdocs"]
+
+[tool.hatch.envs.docs.scripts]
+build = "mkdocs build -f mkdocs.yml {args}"
+serve = "mkdocs serve -f mkdocs.yml {args}"
+gh-deploy = "mkdocs gh-deploy -f mkdocs.yml {args}"
+
+[tool.coverage.run]
+source_pkgs = ["python_deep_dive", "tests"]
+branch = true
+parallel = true
+omit = [
+    "src/python_deep_dive/__about__.py",
+]
+
+[tool.coverage.paths]
+python_deep_dive = ["src/python_deep_dive", "*/python-deep-dive/src/python_deep_dive"]
+tests = ["tests", "*/python-deep-dive/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "no cov",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
