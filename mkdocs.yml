@@ -29,7 +29,15 @@ theme:
 
 nav:
   - 'Index': 'index.md'
-
+  - 'Les classes en Python':
+      - 'I. Introduction': 'python_classes/01_introduction.md'
+      - 'II. Les attributs': 'python_classes/02_attributes.md'
+      - 'III. Les méthodes': 'python_classes/03_methods.md'
+      - 'IV. Encapsulation': 'python_classes/04_encapsulation.md'
+      - 'V. Héritage': 'python_classes/05_inheritance.md'
+      - 'VI. Métaclasse': 'python_classes/06_metaclass.md'
+      - 'VII. Classes abstraites': 'python_classes/07_abstract.md'
+      - 'VIII. Dataclasses': 'python_classes/08_dataclasses.md'
 
 extra:
   generator: false
